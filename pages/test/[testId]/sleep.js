@@ -8,20 +8,41 @@ const Sleep = ({data}) => {
     const {testId} = router.query
 
 
-    const [sleep_start, setStart] = useState("");
-    const [sleep_end, setEnd] = useState("");
-    const [drugs, setDrugs] = useState("");
-    const [quality, setQuality] = useState("");
+    let [sleep_start, setStart] = useState("");
+    let [sleep_end, setEnd] = useState("");
+    let [drugs, setDrugs] = useState("");
+    let [quality, setQuality] = useState("");
 
+    if (drugs !== 0 && drugs !== 1){
+        drugs = 0
+    }
 
+    if (quality === ''){
+        quality = 1
+    }
 
+    sleep_start = new Date(sleep_start.replace("T", " ")).toLocaleString().replace(",", "")
+    sleep_end = new Date(sleep_end.replace("T", "")).toLocaleString().replace(",", "")
+
+    console.log(sleep_start)
+
+    const answers = {
+        "sleep_start": sleep_start,
+        "sleep_end": sleep_end,
+        "drugs": drugs,
+        "sleep_quality": quality
+    }
+
+    console.log(answers);
+    const submitAnswers = async (e) => {
+        e.preventDefault()
 
     console.log(drugs)
 
     const submitAnswers = async () => {
         const response = await fetch(`http://localhost:${process.env.APIPORT}/test/${testId}/sleep`, {
             method: "PATCH",
-            body: JSON.stringify(),
+            body: JSON.stringify(answers),
             headers: {
                 'Content-Type': 'application/json'
             }
