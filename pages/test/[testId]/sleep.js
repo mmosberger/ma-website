@@ -1,12 +1,12 @@
 import {useRouter} from "next/router";
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 
 const Sleep = ({data}) => {
 
     const router = useRouter()
     const {testId} = router.query
-
+    let key = 0;
 
     let [sleepStart, setStart] = useState("");
     let [sleepEnd, setEnd] = useState("");
@@ -64,7 +64,6 @@ const Sleep = ({data}) => {
         }
     }
 
-    let msg = data.errors[0].msg
     return (
         <form onSubmit={(e) => submitAnswers(e)}>
 
@@ -188,21 +187,15 @@ Sleep.getInitialProps = async ({req, res, query}) => {
             data = resData
 
             if (response.status !== 200) {
-                if (response.status === 401) {
-                    //Fragen nicht beantwortet
-
-
-                } else if (response.status === 404) {
+                if (response.status === 404) {
                     res.writeHead(301, {
                         location: `/404`
                     })
+                    res.end()
                     //test nicht gefunden
 
                 } else if (response.status === 403) {
                     //test bereits gelöst
-                }
-                return {
-                    props: data,
                 }
             } else {
                 res.writeHead(301, {
