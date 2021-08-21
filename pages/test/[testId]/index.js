@@ -1,9 +1,12 @@
 import {useRouter} from "next/router";
 import symbols from "../../../public/symbols.json"
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import React from "react"
 
 const Test = ({data}) => {
+    const answersRef = useRef();
+    const router = useRouter();
+    const submitButtonRef = useRef();
 
     const handleSubmit = async (event) => {
         event.preventDefault()
