@@ -1,17 +1,17 @@
 
-const solved = () => {
+const getting_solved = () => {
    return (
 
        <div className="min-h-screen min-w-screen  w-full h-full bg-gray-200 flex justify-center items-center">
            <div className="space-y-6 h-full">
-               <h1 className="text-center text-3xl">Dieser Test wurde bereits gelöst oder wird zurzeit noch gelöst.</h1>
+               <h1 className="text-center text-3xl">Dieser Test wird zurzeit gelöst.</h1>
            </div>
        </div>
     )
 }
 
 
-solved.getInitialProps = async ({res, query}) => {
+getting_solved.getInitialProps = async ({res, query}) => {
 
     let status;
     let data;
@@ -34,6 +34,13 @@ solved.getInitialProps = async ({res, query}) => {
                     })
                     res.end()
                     //test exisitert nicht
+                } else if (response.status === 402){
+                    console.log(1)
+                    //test wurde bereits gelöst
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/answers`
+                    })
+                    res.end()
                 }
             } else {
                 res.writeHead(301, {
@@ -56,4 +63,4 @@ solved.getInitialProps = async ({res, query}) => {
 
 }
 
-export default solved;
+export default getting_solved;

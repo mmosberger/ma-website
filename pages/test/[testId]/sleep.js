@@ -194,9 +194,14 @@ Sleep.getInitialProps = async ({res, query}) => {
                     //test nicht gefunden
 
                 } else if (response.status === 403) {
-                    //test bereits gelöst
+                    //test wird zurzeit gelöst
                     res.writeHead(301, {
-                        location: `/404`
+                        location: `/test/${query.testId}/getting_solved`
+                    })
+                    res.end()
+                } else if (response.status === 402) {
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/answers`
                     })
                     res.end()
                 }

@@ -93,7 +93,8 @@ const Test = ({data}) => {
                         <div className="flex items-center justify-center">
                             <div className="flex items-center justify-center">
                                 <button type="submit" onClick={startTest()}
-                                        className="bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                        className="bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
+                                        border border-blue-500 hover:border-transparent rounded">
                                     starten
                                 </button>
                             </div>
@@ -200,9 +201,16 @@ Test.getInitialProps = async ({res, query}) => {
                     //test exisitert nicht
 
                 } else if (response.status === 403) {
-                    //test bereits gelöst
+                    //test wird gerade gelöst
                     res.writeHead(301, {
-                        location: `/test/${query.testId}/solved`
+                        location: `/test/${query.testId}/getting_solved`
+                    })
+                    res.end()
+                } else if (response.status === 402){
+                    console.log(1)
+                    //test wurde bereits gelöst
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/answers`
                     })
                     res.end()
                 }
