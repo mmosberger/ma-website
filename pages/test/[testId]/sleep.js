@@ -2,11 +2,10 @@ import {useRouter} from "next/router";
 import {useEffect, useState} from 'react';
 
 
-const Sleep = ({data}) => {
+const Sleep = () => {
 
     const router = useRouter()
     const {testId} = router.query
-    let key = 0;
 
     let [sleepStart, setStart] = useState("");
     let [sleepEnd, setEnd] = useState("");
@@ -123,12 +122,12 @@ const Sleep = ({data}) => {
                             <div className="flex justify-center items-center bg-gray-100 p-4 space-x-8 rounded-lg">
                                 <label className="justify-center items-center space-x-2">
                                     <input type="radio" className="form-radio" name="drugsbuttons" value="1"
-                                           onChange={(e) => setDrugs("1")}/>
+                                           onChange={setDrugs("1")}/>
                                     <span>Ja</span>
                                 </label>
                                 <label className="justify-center items-center space-x-2">
                                     <input type="radio" className="form-radio" name="drugsbuttons" value="0" checked
-                                           onChange={(e) => setDrugs("0")}/>
+                                           onChange={setDrugs("0")}/>
                                     <span>Nein</span>
                                 </label>
                             </div>
@@ -175,7 +174,7 @@ const Sleep = ({data}) => {
 }
 
 
-Sleep.getInitialProps = async ({req, res, query}) => {
+Sleep.getInitialProps = async ({res, query}) => {
 
     let status;
     let data;
@@ -189,13 +188,17 @@ Sleep.getInitialProps = async ({req, res, query}) => {
             if (response.status !== 200) {
                 if (response.status === 404) {
                     res.writeHead(301, {
-                        location: `/404`
+                        location: `/testNotFound`
                     })
                     res.end()
                     //test nicht gefunden
 
                 } else if (response.status === 403) {
                     //test bereits gelöst
+                    res.writeHead(301, {
+                        location: `/404`
+                    })
+                    res.end()
                 }
             } else {
                 res.writeHead(301, {

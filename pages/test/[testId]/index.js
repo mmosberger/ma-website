@@ -1,51 +1,80 @@
 import {useRouter} from "next/router";
 import symbols from "../../../public/symbols.json"
-import {useEffect, useState, useRef} from "react";
+import { useState, useRef} from "react";
 import React from "react"
 import {useTimer} from "react-timer-hook"
 
 const Test = ({data}) => {
-    const answersRef = useRef();
     const router = useRouter();
     const submitButtonRef = useRef();
+    let [startButton, setStartButton] = useState(false)
+    let [sendButtonEnabled, setSendButtonEnable] = useState(false);
 
-    const handleSubmit = async (event) => {
 
-    }
+    let expiryTimestamp = new Date();
+    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 2)
 
-    //TODO API Request, Blur wenn Timer noch nicht gestartet, Timer wird noch nciht unten dargestellt, errors zeigen (sollte keine geben), automatisches senden (Vorteile wenn nicht, die Zahlen können nur gesendet werden, wenn sie im min/max Bereich drin sind
-    const patchApi = async (patchData) => {
-        let status;
-
-        await fetch(`http://localhost:${process.env.APIPORT}/test/${router.query.testId}`, {
-            method: "PATCH",
-            body: json.stringify(patchData),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(async response => {
-            status = response.status;
-            await response.json().then(async resData => {
-
-                if (response.status !== 200) {
-                    console.log(response.errors[0].msg)
-                }
-            })
-        })
-    }
-
-    let expiryTimestamp = +new Date() + 90
     const {
         seconds,
         minutes,
-        hours,
-        days,
-        isRunning,
-        start,
-        pause,
-        resume,
-        restart,
-    } = useTimer({expiryTimestamp, onExpire: () => console.warn('onExpire called')});
+        start
+    } = useTimer({
+        expiryTimestamp, autoStart: false, onExpire: () => {
+            setSendButtonEnable(true)
+            submitButtonRef.current.click()
+        }
+    });
+
+    const startTest = async () => {
+        setStartButton(true)
+        start()
+    }
+
+    const handleSubmit = async (e) => {
+
+        e.preventDefault()
+
+        let arr = e.target.elements
+        let newArr = []
+
+
+        for (let item of arr) {
+            let userInput;
+            if (item.type === "number"){
+
+                if (item.value === ""){
+                    userInput = null
+                } else {
+                    userInput = parseInt(item.value)
+                }
+
+                let obj ={
+                    "user_input": userInput,
+                    "answer_no": parseInt(item.name),
+                    "icon_id":parseInt(item.id)
+                }
+                newArr.push(obj)
+            }
+        }
+
+
+
+        let response = await fetch(`http://localhost:${process.env.APIPORT}/test/${router.query.testId}`, {
+            method: "PATCH",
+            body: JSON.stringify({
+                "answers": newArr,
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        if(response.status === 200) {
+            window.location.href = `/test/${router.query.testId}/ended`
+        } else {
+            console.log(response.status)
+        }
+    }
 
 
     return (
@@ -59,78 +88,94 @@ const Test = ({data}) => {
                     </span>
                 </div>
             </div>
-            <div>
-                <button onClick={start}>Start</button>
-                <form name="testform" onSubmit={(event => handleSubmit(event))}>
-                    <div className="bg-gray-100 min-w-screen min-h-screen">
-                        <div className="flex p-10 w-full">
-                            <div className="flex flex-wrap w-full items-center justify-center">
-                                {
-                                    data.legende.map(number => (
-
-                                        <div className="border border-black justify-center w-12" key={number.icon_no}>
-                                            <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === number.icon_id).symbol}</p>
-                                            <p className="text-center text-2xl border border-rounded-none">{number.icon_no}</p>
-                                        </div>
-
-                                    ))
-                                }
+            {!startButton ?
+                <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
+                    <div className="flex items-center w-full h-full justify-center">
+                        <div className="flex items-center justify-center">
+                            <div className="flex items-center justify-center">
+                                <button type="submit" onClick={startTest()}
+                                        className="bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                                    starten
+                                </button>
                             </div>
                         </div>
-
-                        <div className="mt-10 mx-8">
-                            <div className="mt-10 flex justify-center">
-                                <div className="flex flex-wrap max-w-7xl ">
+                    </div>
+                </div> : null
+            }
+            {startButton === false ? null :
+                <div>
+                    <form name="testform" onSubmit={(event => handleSubmit(event))}>
+                        <div className="bg-gray-100 min-w-screen min-h-screen">
+                            <div className="flex p-10 w-full">
+                                <div className="flex flex-wrap w-full items-center justify-center">
                                     {
-                                        data.answers.map(answer => (
+                                        data.legende.map(number => (
 
-                                            <div className="w-1/25 border border-black justify-center mb-12"
-                                                 key={answer.answer_no}>
-                                                <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === answer.icon_id).symbol}</p>
-                                                <input type="number" min="1" max="9"
-                                                       className="w-full text-center text-2xl"
-                                                       name={answer.answer_no}/>
+                                            <div className="border border-black justify-center w-12"
+                                                 key={number.icon_no}
+                                                 id={number.icon_id}>
+                                                <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === number.icon_id).symbol}</p>
+                                                <p className="text-center text-2xl border border-rounded-none">{number.icon_no}</p>
                                             </div>
 
                                         ))
                                     }
                                 </div>
-
                             </div>
-                        </div>
 
-                        <div className="grid grid-cols-3 gap-4">
-                            <div>
+                            <div className="mt-10 mx-8">
+                                <div className="mt-10 flex justify-center">
+                                    <div className="flex flex-wrap max-w-7xl ">
+                                        {
+                                            data.answers.map(answer => (
 
-                            </div>
-                            <div className="flex items-center justify-center">
-                                <div className="flex items-center justify-center">
-                                    <button type="submit" ref={submitButtonRef}
-                                            className="bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                                        senden
-                                    </button>
-                                </div>
+                                                <div className="w-1/25 border border-black justify-center mb-12"
+                                                     key={answer.answer_no}>
+                                                    <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === answer.icon_id).symbol}</p>
+                                                    <input type="number" min="1" max="9"
+                                                           className="w-full text-center text-2xl"
+                                                           name={answer.answer_no} id={answer.tableRow}/>
+                                                </div>
 
-                            </div>
-                            <div className="borders mr-8 rounded-lg">
-                                <div className="flex items-center justify-center">
-                                    {minutes === 0 && seconds === 0
-                                        ? null
-                                        :
-                                        <h1 className="text-xl"> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
-                                    }
+                                            ))
+                                        }
+                                    </div>
+
                                 </div>
                             </div>
+
+                            <div className="grid grid-cols-3 gap-4">
+                                <div>
+
+                                </div>
+                                <div className="flex items-center justify-center">
+                                    <div className="flex items-center justify-center">
+                                        <button type="submit" ref={submitButtonRef} disabled={!sendButtonEnabled}
+                                                className="hidden">
+                                            senden
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="borders mr-8 rounded-lg">
+                                    <div className="flex items-center justify-center">
+                                        {minutes === 0 && seconds === 0
+                                            ? null
+                                            :
+                                            <h1 className="text-xl"> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            }
         </>
     )
 }
 
 
-Test.getInitialProps = async ({req, res, query}) => {
+Test.getInitialProps = async ({res, query}) => {
 
     let status;
     let data;
@@ -149,10 +194,18 @@ Test.getInitialProps = async ({req, res, query}) => {
                     //Fragen nicht beantwortet
 
                 } else if (response.status === 404) {
-                    //test nicht gefunden
+                    res.writeHead(301, {
+                        location: `/testNotFound`
+                    })
+                    res.end()
+                    //test exisitert nicht
 
                 } else if (response.status === 403) {
                     //test bereits gelöst
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/solved`
+                    })
+                    res.end()
                 }
                 return {
                     props: data,
