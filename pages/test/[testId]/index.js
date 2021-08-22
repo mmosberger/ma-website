@@ -207,7 +207,6 @@ Test.getInitialProps = async ({res, query}) => {
                     })
                     res.end()
                 } else if (response.status === 402){
-                    console.log(1)
                     //test wurde bereits gelöst
                     res.writeHead(301, {
                         location: `/test/${query.testId}/answers`
