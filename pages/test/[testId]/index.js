@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import symbols from "../../../public/symbols.json"
-import { useState, useRef} from "react";
+import {useState, useRef} from "react";
 import React from "react"
 import {useTimer} from "react-timer-hook"
 
@@ -40,23 +40,22 @@ const Test = ({data}) => {
 
         for (let item of arr) {
             let userInput;
-            if (item.type === "number"){
+            if (item.type === "number") {
 
-                if (item.value === ""){
+                if (item.value === "") {
                     userInput = null
                 } else {
                     userInput = parseInt(item.value)
                 }
 
-                let obj ={
+                let obj = {
                     "user_input": userInput,
                     "answer_no": parseInt(item.name),
-                    "icon_id":parseInt(item.id)
+                    "icon_id": parseInt(item.id)
                 }
                 newArr.push(obj)
             }
         }
-
 
 
         let response = await fetch(`http://localhost:${process.env.APIPORT}/test/${router.query.testId}`, {
@@ -69,7 +68,7 @@ const Test = ({data}) => {
             }
         });
 
-        if(response.status === 200) {
+        if (response.status === 200) {
             window.location.href = `/test/${router.query.testId}/ended`
         } else {
             console.log(response.status)
