@@ -3,8 +3,12 @@ import symbols from "../../../public/symbols.json"
 import {useState, useRef} from "react";
 import React from "react"
 import {useTimer} from "react-timer-hook"
+import Image from 'next/image'
+import testimage from '../../../public/test_image.png'
+
 
 const Test = ({data}) => {
+
     const router = useRouter();
     const submitButtonRef = useRef();
     let [startButton, setStartButton] = useState(false)
@@ -89,10 +93,17 @@ const Test = ({data}) => {
             </div>
             {!startButton ?
                 <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
-                    <div className="flex items-center w-full h-full justify-center">
-                        <div className="flex items-center justify-center">
+                    <div className="bg-gray-100 flex items-center w-full h-full justify-center">
+                        <div className="grid grid-cols-2 flex items-center justify-center">
+                            <div className="flex justify-center">
+                                <span className="text-xl">
+                                    Schauen Sie sich diese Kästchen am oberen Rand der Seite hat es . Im oberen Teil der Box hat es ein Symbol, auf dem unteren Teil eine Zahl von 1 - 9. Diese 2 Komponenten sind miteinander gepaart.
+
+                                </span>
+                                <Image src={testimage} className=""/>
+                            </div>
                             <div className="flex items-center justify-center">
-                                <button type="submit" onClick={startTest()}
+                                <button type="submit" onClick={event => startTest()}
                                         className="bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
                                         border border-blue-500 hover:border-transparent rounded">
                                     starten
@@ -200,21 +211,18 @@ Test.getInitialProps = async ({res, query}) => {
                     res.end()
                     //test exisitert nicht
 
-                } else if (response.status === 403) {
-                    //test wird gerade gelöst
-                    res.writeHead(301, {
-                        location: `/test/${query.testId}/getting_solved`
-                    })
-                    res.end()
-                } else if (response.status === 402){
-                    //test wurde bereits gelöst
+                } else if (response.status === 402) {
                     res.writeHead(301, {
                         location: `/test/${query.testId}/answers`
                     })
                     res.end()
-                }
-                return {
-                    props: data,
+
+                } else if (response.status === 403) {
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/getting_solved`
+                    })
+                    res.end()
+
                 }
             }
         })

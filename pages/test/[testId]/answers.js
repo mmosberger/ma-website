@@ -69,6 +69,8 @@ Answers.getInitialProps = async ({res, query}) => {
                 res.writeHead(301, {
                     location: `/test/${query.testId}`
                 })
+                res.end()
+
             }
         })
     })
