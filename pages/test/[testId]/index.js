@@ -61,6 +61,7 @@ const Test = ({data}) => {
             }
         }
 
+        //TODO wenn value ausser bereich und abgeschickt wird dann wird nicht gesendet
 
         let response = await fetch(`http://localhost:${process.env.APIPORT}/test/${router.query.testId}`, {
             method: "PATCH",
@@ -94,7 +95,6 @@ const Test = ({data}) => {
             {!startButton ?
                 <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
                     <div className="bg-gray-100 flex items-center w-full h-full justify-center">
-                        <div className="grid grid-cols-2 flex items-center justify-center">
                             <div className="flex justify-center">
                                 <span className="text-xl">
                                     Schauen Sie sich diese Kästchen am oberen Rand der Seite hat es . Im oberen Teil der Box hat es ein Symbol, auf dem unteren Teil eine Zahl von 1 - 9. Diese 2 Komponenten sind miteinander gepaart.
@@ -109,7 +109,6 @@ const Test = ({data}) => {
                                     starten
                                 </button>
                             </div>
-                        </div>
                     </div>
                 </div> : null
             }
