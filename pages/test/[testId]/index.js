@@ -16,7 +16,7 @@ const Test = ({data}) => {
 
 
     let expiryTimestamp = new Date();
-    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 90)
+    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 120)
 
     const {
         seconds,
