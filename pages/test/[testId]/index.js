@@ -15,6 +15,9 @@ const Test = ({data}) => {
     let [sendButtonEnabled, setSendButtonEnable] = useState(false);
 
 
+    //todo wenn drugsbutton auf ja gestellt wird, und man danach die schlafqualität ändert, springt der Button zurück auf nein
+
+
     let expiryTimestamp = new Date();
     expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 120)
 
@@ -80,6 +83,8 @@ const Test = ({data}) => {
         }
     }
 
+    //Todo design der Anleitungsseite noch fertig machen
+
 
     return (
         <>
@@ -142,7 +147,7 @@ const Test = ({data}) => {
                                                 <div className="w-1/25 border border-black justify-center mb-12"
                                                      key={answer.answer_no}>
                                                     <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === answer.icon_id).symbol}</p>
-                                                    <input type="number" min="1" max="9"
+                                                    <input type="number"
                                                            className="w-full text-center text-2xl"
                                                            name={answer.answer_no} id={answer.tableRow}/>
                                                 </div>
