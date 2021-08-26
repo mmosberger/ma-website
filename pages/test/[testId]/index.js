@@ -102,10 +102,12 @@ const Test = ({data}) => {
                     <div className="bg-gray-100 flex items-center w-full h-full justify-center">
                             <div className="flex justify-center">
                                 <span className="text-xl">
-                                    Schauen Sie sich diese Kästchen am oberen Rand der Seite hat es . Im oberen Teil der Box hat es ein Symbol, auf dem unteren Teil eine Zahl von 1 - 9. Diese 2 Komponenten sind miteinander gepaart.
+                                    Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.
+                                    <br/>
+                                    Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
 
                                 </span>
-                                <Image src={testimage} className=""/>
+                                <Image src={testimage} className="object-scale-down"/>
                             </div>
                             <div className="flex items-center justify-center">
                                 <button type="submit" onClick={event => startTest()}
