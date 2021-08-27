@@ -46,7 +46,7 @@ const Sleep = () => {
             "sleep_quality": sleepQuality
         }
 
-        let response = await fetch(`http://localhost:${process.env.APIPORT}/test/${testId}/sleep`, {
+        let response = await fetch(`https://api.konzentrationstest.ch/test/${testId}/sleep`, {
             method: "PATCH",
             body: JSON.stringify(answers),
             headers: {
@@ -180,7 +180,7 @@ Sleep.getInitialProps = async ({res, query}) => {
     let data;
 
 
-    await fetch(`http://localhost:${process.env.APIPORT}/test/${query.testId}`).then(async response => {
+    await fetch(`https://api.konzentrationstest.ch/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData
