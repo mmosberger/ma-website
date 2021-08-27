@@ -15,6 +15,9 @@ const Test = ({data}) => {
     let [sendButtonEnabled, setSendButtonEnable] = useState(false);
 
 
+    //todo wenn drugsbutton auf ja gestellt wird, und man danach die schlafqualität ändert, springt der Button zurück auf nein
+
+
     let expiryTimestamp = new Date();
     expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 120)
 
@@ -80,6 +83,8 @@ const Test = ({data}) => {
         }
     }
 
+    //Todo design der Anleitungsseite noch fertig machen
+
 
     return (
         <>
@@ -95,16 +100,18 @@ const Test = ({data}) => {
             {!startButton ?
                 <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
                     <div className="bg-gray-100 flex items-center w-full h-full justify-center">
-                            <div className="flex justify-center">
+                            <div className="ml-4 justify-center items-center flex justify-center">
                                 <span className="text-xl">
-                                    Schauen Sie sich diese Kästchen am oberen Rand der Seite hat es . Im oberen Teil der Box hat es ein Symbol, auf dem unteren Teil eine Zahl von 1 - 9. Diese 2 Komponenten sind miteinander gepaart.
+                                    Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.
+                                    <br/>
+                                    Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
 
                                 </span>
-                                <Image src={testimage} className=""/>
+                                <Image src={testimage} className="justify-center items-center transform scale-75"/>
                             </div>
                             <div className="flex items-center justify-center">
                                 <button type="submit" onClick={event => startTest()}
-                                        className="bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
+                                        className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
                                         border border-blue-500 hover:border-transparent rounded">
                                     starten
                                 </button>
@@ -142,7 +149,7 @@ const Test = ({data}) => {
                                                 <div className="w-1/25 border border-black justify-center mb-12"
                                                      key={answer.answer_no}>
                                                     <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === answer.icon_id).symbol}</p>
-                                                    <input type="number" min="1" max="9"
+                                                    <input type="number"
                                                            className="w-full text-center text-2xl"
                                                            name={answer.answer_no} id={answer.tableRow}/>
                                                 </div>
