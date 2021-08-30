@@ -16,7 +16,7 @@ getting_solved.getInitialProps = async ({res, query}) => {
     let status;
     let data;
 
-    await fetch(`http://localhost:${process.env.APIPORT}/test/${query.testId}`).then(async response => {
+    await fetch(`https://api.konzentrationstest.ch/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData

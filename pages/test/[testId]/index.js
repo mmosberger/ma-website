@@ -66,7 +66,7 @@ const Test = ({data}) => {
 
         //TODO wenn value ausser bereich und abgeschickt wird dann wird nicht gesendet
 
-        let response = await fetch(`http://localhost:${process.env.APIPORT}/test/${router.query.testId}`, {
+        let response = await fetch(`https://api.konzentrationstest.ch/test/${router.query.testId}`, {
             method: "PATCH",
             body: JSON.stringify({
                 "answers": newArr,
@@ -197,7 +197,7 @@ Test.getInitialProps = async ({res, query}) => {
     let status;
     let data;
 
-    await fetch(`http://localhost:${process.env.APIPORT}/test/${query.testId}`).then(async response => {
+    await fetch(`+`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData
