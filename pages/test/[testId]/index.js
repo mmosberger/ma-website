@@ -64,9 +64,11 @@ const Test = ({data}) => {
             }
         }
 
-        //TODO wenn value ausser bereich und abgeschickt wird dann wird nicht gesendet
 
-        let response = await fetch(`https://api.konzentrationstest.ch/test/${router.query.testId}`, {
+        const dev = process.env.NODE_ENV !== 'production';
+        const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
+
+        let response = await fetch(server + `/test/${router.query.testId}`, {
             method: "PATCH",
             body: JSON.stringify({
                 "answers": newArr,
@@ -195,7 +197,7 @@ const Test = ({data}) => {
 Test.getInitialProps = async ({res, query}) => {
 
     const dev = process.env.NODE_ENV !== 'production';
-    const server = dev ? 'http://localhost:8080' : 'https://konzentrationstest.ch';
+    const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
 
     let status;
     let data;

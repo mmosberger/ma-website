@@ -58,7 +58,7 @@ const Answers = ({data}) => {
 Answers.getInitialProps = async ({res, query}) => {
 
     const dev = process.env.NODE_ENV !== 'production';
-    const server = dev ? 'http://localhost:8080' : 'https://konzentrationstest.ch';
+    const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
 
     let status;
     let data;
