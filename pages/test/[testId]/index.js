@@ -194,10 +194,13 @@ const Test = ({data}) => {
 
 Test.getInitialProps = async ({res, query}) => {
 
+    const dev = process.env.NODE_ENV !== 'production';
+    const server = dev ? 'http://localhost:8080' : 'https://konzentrationstest.ch';
+
     let status;
     let data;
 
-    await fetch(`+`).then(async response => {
+    await fetch(server + `/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData
