@@ -183,8 +183,11 @@ Sleep.getInitialProps = async ({res, query}) => {
     let status;
     let data;
 
+    const dev = process.env.NODE_ENV !== 'production';
+    const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
 
-    await fetch(`http://localhost:${process.env.APIPORT}/test/${query.testId}`).then(async response => {
+
+    await fetch(server + `/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData
