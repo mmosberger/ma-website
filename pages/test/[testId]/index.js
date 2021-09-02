@@ -66,7 +66,10 @@ const Test = ({data}) => {
 
         //TODO wenn value ausser bereich und abgeschickt wird dann wird nicht gesendet
 
-        let response = await fetch(`https://api.konzentrationstest.ch/test/${router.query.testId}`, {
+        const dev = process.env.NODE_ENV !== 'production';
+        const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
+
+        let response = await fetch(server + `/test/${router.query.testId}`, {
             method: "PATCH",
             body: JSON.stringify({
                 "answers": newArr,
@@ -98,24 +101,28 @@ const Test = ({data}) => {
                 </div>
             </div>
             {!startButton ?
-                <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
-                    <div className="bg-gray-100 flex items-center w-full h-full justify-center">
-                            <div className="ml-4 justify-center items-center flex justify-center">
-                                <span className="text-xl">
-                                    Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.
+                <div className="z-40 max-h-full w-full h-full fixed z-10 top-0 left-0">
+                    <div className="bg-gray-100 w-full max-h-full h-full flex justify-center items-center">
+                        <div className="max-h-full justify-center items-center">
+                            <div className="ml-4 mt-10 block justify-center">
+                                <h2 className="text-xl px-28 flex items-center">
+                                    Hier unten siehst du ein Beispiel von einem Test. Dieser ist in zwei Teile aufgeteilt. Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die Tab Taste benutzt.
                                     <br/>
-                                    Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
-
-                                </span>
-                                <Image src={testimage} className="justify-center items-center transform scale-75"/>
+                                    Sobald du auf Start drückst, wird dir dein richtiger Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, jenen zu lösen. Er wird bei Abschluss der Zeit automatisch abgesendet.
+                                </h2>
+                                <Image src={testimage} height="1000" className="justify-center items-center transform scale-75"/>
                             </div>
-                            <div className="flex items-center justify-center">
-                                <button type="submit" onClick={event => startTest()}
-                                        className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
+                            <div>
+                                <div className="flex items-center justify-center">
+                                    <button type="submit" onClick={event => startTest()}
+                                            className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
                                         border border-blue-500 hover:border-transparent rounded">
-                                    starten
-                                </button>
+                                        starten
+                                    </button>
+                                </div>
                             </div>
+                        </div>
+
                     </div>
                 </div> : null
             }
@@ -194,10 +201,13 @@ const Test = ({data}) => {
 
 Test.getInitialProps = async ({res, query}) => {
 
+    const dev = process.env.NODE_ENV !== 'production';
+    const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
+
     let status;
     let data;
 
-    await fetch(`https://api.konzentrationstest.ch/test/${query.testId}`).then(async response => {
+    await fetch(server + `/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData
