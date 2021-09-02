@@ -9,7 +9,7 @@ const Sleep = () => {
 
     let [sleepStart, setStart] = useState("");
     let [sleepEnd, setEnd] = useState("");
-    let [drugs, setDrugs] = useState("1");
+    let [drugs, setDrugs] = useState(false);
     let [sleepQuality, setQuality] = useState("1");
     let [sendButtonEnabled, setSendButtonEnable] = useState(false);
     let [showError, setShowError] = useState(false)
@@ -42,7 +42,7 @@ const Sleep = () => {
         let answers = {
             "start_sleep": sleepStart,
             "end_sleep": sleepEnd,
-            "drugs": drugs,
+            "drugs": drugs ? "1" : "0",
             "sleep_quality": sleepQuality
         }
 
@@ -125,13 +125,13 @@ const Sleep = () => {
                         <div className="w-1/2">
                             <div className="flex justify-center items-center bg-gray-100 p-4 space-x-8 rounded-lg">
                                 <label className="justify-center items-center space-x-2">
-                                    <input type="radio" className="form-radio" name="drugsbuttons" value="1"
-                                           onChange={(e) => setDrugs("1")}/>
+                                    <input type="radio" className="form-radio" name="drugsbuttons" value="1" checked={drugs}
+                                           onChange={(e) => setDrugs(true)}/>
                                     <span>Ja</span>
                                 </label>
                                 <label className="justify-center items-center space-x-2">
-                                    <input type="radio" className="form-radio" name="drugsbuttons" value="0" checked
-                                           onChange={(e) => setDrugs("0")}/>
+                                    <input type="radio" className="form-radio" name="drugsbuttons" value="0" checked={!drugs}
+                                           onChange={(e) => setDrugs(false)}/>
                                     <span>Nein</span>
                                 </label>
                             </div>
