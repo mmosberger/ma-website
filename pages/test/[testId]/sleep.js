@@ -46,7 +46,11 @@ const Sleep = () => {
             "sleep_quality": sleepQuality
         }
 
-        let response = await fetch(`https://api.konzentrationstest.ch/test/${testId}/sleep`, {
+        const dev = process.env.NODE_ENV !== 'production';
+        const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
+
+
+        let response = await fetch(server + `/test/${router.query.testId}/sleep`, {
             method: "PATCH",
             body: JSON.stringify(answers),
             headers: {
@@ -179,8 +183,11 @@ Sleep.getInitialProps = async ({res, query}) => {
     let status;
     let data;
 
+    const dev = process.env.NODE_ENV !== 'production';
+    const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
 
-    await fetch(`https://api.konzentrationstest.ch/test/${query.testId}`).then(async response => {
+
+    await fetch(server + `/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData
