@@ -16,7 +16,6 @@ next.config.js
 # production
 /build
 
-.env
 
 
 # misc
