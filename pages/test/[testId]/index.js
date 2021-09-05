@@ -64,7 +64,6 @@ const Test = ({data}) => {
             }
         }
 
-        //TODO wenn value ausser bereich und abgeschickt wird dann wird nicht gesendet
 
         const dev = process.env.NODE_ENV !== 'production';
         const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
@@ -197,10 +196,13 @@ const Test = ({data}) => {
 
 Test.getInitialProps = async ({res, query}) => {
 
+    const dev = process.env.NODE_ENV !== 'production';
+    const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
+
     let status;
     let data;
 
-    await fetch(`http://localhost:${process.env.APIPORT}/test/${query.testId}`).then(async response => {
+    await fetch(server + `/test/${query.testId}`).then(async response => {
         status = response.status;
         await response.json().then(async resData => {
             data = resData

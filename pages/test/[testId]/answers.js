@@ -15,7 +15,7 @@ const Answers = ({data}) => {
                 </div>
             </div>
             <div>
-                <form name="testform">
+                <form name="testform-test">
                     <div className="bg-gray-100 min-w-screen min-h-screen">
                         <div className="flex p-10 w-full">
                             <div className="flex flex-wrap w-full items-center justify-center">

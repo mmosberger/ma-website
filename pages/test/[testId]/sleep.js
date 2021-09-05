@@ -51,7 +51,7 @@ const Sleep = () => {
 
 
         let response = await fetch(server + `/test/${router.query.testId}/sleep`, {
-            method: "PATCH",
+          method: "PATCH",
             body: JSON.stringify(answers),
             headers: {
                 'Content-Type': 'application/json'
@@ -180,11 +180,11 @@ const Sleep = () => {
 
 Sleep.getInitialProps = async ({res, query}) => {
 
-    let status;
-    let data;
-
     const dev = process.env.NODE_ENV !== 'production';
     const server = dev ? 'http://localhost:8080' : 'https://api.konzentrationstest.ch';
+
+    let status;
+    let data;
 
 
     await fetch(server + `/test/${query.testId}`).then(async response => {
