@@ -96,8 +96,8 @@ const Test = ({data}) => {
             </div>
             {!startButton ?
                 <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
-                    <div className="bg-gray-100 flex items-center w-full h-full justify-center">
-                            <div className="ml-4 justify-center items-center flex justify-center">
+                    <div className="bg-gray-100 flex flex-col items-center w-full h-full justify-center">
+                            <div className="flex flex-col ml-4 justify-center items-center justify-center">
                                 <span className="text-xl">
                                     Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.
                                     <br/>
