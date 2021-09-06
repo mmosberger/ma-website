@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "node server.js",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 3000"
+    "start": "next start"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.3.3",

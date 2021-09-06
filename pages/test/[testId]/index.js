@@ -15,9 +15,6 @@ const Test = ({data}) => {
     let [sendButtonEnabled, setSendButtonEnable] = useState(false);
 
 
-    //todo wenn drugsbutton auf ja gestellt wird, und man danach die schlafqualität ändert, springt der Button zurück auf nein
-
-
     let expiryTimestamp = new Date();
     expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 120)
 
@@ -85,8 +82,6 @@ const Test = ({data}) => {
         }
     }
 
-    //Todo design der Anleitungsseite noch fertig machen
-
 
     return (
         <>
@@ -109,7 +104,7 @@ const Test = ({data}) => {
                                     Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
 
                                 </span>
-                                <Image src={testimage} className="justify-center items-center transform scale-75"/>
+                                <Image src={testimage} height="1100" className="justify-center items-center transform scale-75"/>
                             </div>
                             <div className="flex items-center justify-center">
                                 <button type="submit" onClick={event => startTest()}
