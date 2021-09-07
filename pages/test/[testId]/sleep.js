@@ -1,5 +1,5 @@
 import {useRouter} from "next/router";
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 const Sleep = () => {
@@ -70,6 +70,13 @@ const Sleep = () => {
     return (
         <form onSubmit={(e) => submitAnswers(e)}>
 
+            <div className="z-40 w-full h-full fixed z-10 top-0 left-0 bg-blue-200 lg:hidden">
+                <div className="flex items-center w-full h-full justify-center">
+                    <span className="flex align-center">
+                        Bitte benutze ein Tablet, damit der Test korrekt auf deinem Gerät angezeigt wird.
+                    </span>
+                </div>
+            </div>
 
             <div className="min-h-screen min-w-screen bg-gray-100 flex justify-center items-center w-full h-full">
                 <div className="space-y-6 h-full">

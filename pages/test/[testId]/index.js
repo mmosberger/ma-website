@@ -9,6 +9,7 @@ import testimage from '../../../public/test_image.png'
 
 const Test = ({data}) => {
 
+
     const router = useRouter();
     const submitButtonRef = useRef();
     let [startButton, setStartButton] = useState(false)
@@ -89,31 +90,26 @@ const Test = ({data}) => {
 
             <div className="z-40 w-full h-full fixed z-10 top-0 left-0 bg-blue-200 lg:hidden">
                 <div className="flex items-center w-full h-full justify-center">
-                    <span className="f align-center">
+                    <span className="flex align-center">
                         Bitte benutze ein Tablet, damit der Test korrekt auf deinem Gerät angezeigt wird.
                     </span>
                 </div>
             </div>
             {!startButton ?
-                <div className="z-40 w-full h-full fixed z-10 top-0 left-0">
-                    <div className="bg-gray-100 flex flex-col items-center w-full h-full justify-center">
-                            <div className="flex flex-col ml-4 justify-center items-center justify-center">
-                                <span className="text-xl">
-                                    Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.
-                                    <br/>
+                <div className="w-full h-full fixed top-0 left-0 bg-gray-100">
+                    <div className="flex flex-col items-center justify-center mx-5 my-5 xl:mx-15 xl:my-15">
+                            <span className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-5">Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.<br/>
                                     Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
+                            </span>
 
-                                </span>
-                                <Image src={testimage} height="1100" className="justify-center items-center transform scale-75"/>
-                            </div>
-                            <div className="flex items-center justify-center">
-                                <button type="submit" onClick={event => startTest()}
-                                        className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
+                        <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
+                        <button type="submit" onClick={event => startTest()}
+                                className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
                                         border border-blue-500 hover:border-transparent rounded">
-                                    starten
-                                </button>
-                            </div>
+                            starten
+                        </button>
                     </div>
+
                 </div> : null
             }
             {startButton === false ? null :
