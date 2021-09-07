@@ -20,7 +20,7 @@ const Sleep = () => {
             setSendButtonEnable(false)
         } else if (!sleepEnd) {
             setSendButtonEnable(false)
-        } else if (!drugs) {
+        } else if (drugs === undefined) {
             setSendButtonEnable(false)
         } else if (!sleepQuality) {
             setSendButtonEnable(false)
