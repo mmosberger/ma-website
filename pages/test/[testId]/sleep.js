@@ -59,7 +59,7 @@ const Sleep = () => {
         });
 
         if (response.status === 200) {
-            window.location.href = `/test/${testId}`
+            window.location.href = `/test/${testId}/init`
         } else {
             response = await response.json()
             setErrors(response.errors);
@@ -218,7 +218,12 @@ Sleep.getInitialProps = async ({res, query}) => {
                         location: `/test/${query.testId}/answers`
                     })
                     res.end()
-
+                } else if (response.status === 409) {
+                    // Fragen beantwortet, test noch nicht gestartet
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/init`
+                    })
+                    res.end()
                 }
             } else {
                 res.writeHead(301, {

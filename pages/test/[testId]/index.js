@@ -225,6 +225,12 @@ Test.getInitialProps = async ({res, query}) => {
                     })
                     res.end()
 
+                } else if (response.status === 409) {
+                    // Fragen beantwortet, test noch nicht gestartet
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/init`
+                    })
+                    res.end()
                 }
             }
         })
