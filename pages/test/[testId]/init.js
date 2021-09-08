@@ -12,7 +12,6 @@ const init = ({data}) => {
     const router = useRouter();
 
     const handleSubmit = async (e) => {
-
         e.preventDefault()
 
         const dev = process.env.NODE_ENV !== 'production';
@@ -39,6 +38,7 @@ const init = ({data}) => {
 
     return (
         <>
+            <form onSubmit={e => handleSubmit(e)}>
                 <div className="bg-gray-100">
                     <div className="min-w-screen min-h-screen mb-5">
                         <div className="flex flex-col items-center justify-center pt-5 mx-5 mb-5 xl:mx-15 xl:my-15">
@@ -48,13 +48,16 @@ const init = ({data}) => {
                             </span>
 
                             <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
-                            <button onClick={e => handleSubmit(e)} className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
+                            <button type="submit" onClick={e => handleSubmit(e)} className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
                                         border border-blue-500 hover:border-transparent rounded">
                                 starten
                             </button>
                         </div>
                     </div>
                 </div>
+            </form>
+
+
         </>
     )
 }
