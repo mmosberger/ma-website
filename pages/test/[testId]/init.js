@@ -25,7 +25,7 @@ const init = ({data}) => {
             headers: {
                 "Content-Type": "application/json"
             }
-        });
+        })
 
         if (response.status === 200) {
             window.location.href = `/test/${router.query.testId}`
@@ -38,25 +38,23 @@ const init = ({data}) => {
 
     return (
         <>
-            <form onSubmit={e => handleSubmit(e)}>
                 <div className="bg-gray-100">
                     <div className="min-w-screen min-h-screen mb-5">
                         <div className="flex flex-col items-center justify-center pt-5 mx-5 mb-5 xl:mx-15 xl:my-15">
                             <span
-                                className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-5">Der Test ist in 2 Abschnitte gegliedert. Im Oberen Teil ist eine Legende zu sehen (je ein Symbol und unten die jeweils dazugehörige Zahl). Im unteren Teil sind 4 Reihen mit je 25 Symbolen und einer Textbox zu sehen. Die Aufgabe ist es, das für das jeweils angegebene Symbol die passende Zahl einzufügen.<br/>
-                                    Sobald du auf den Start button drückst, wird dir dein richtiger Test generiert. Ab diesem Moment läuft dein Timer für 2 Minuten. Der Test wird bei Aublauf dieser Zeitspanne automatisch abgesendet.<br/>
-                                    kleiner Tipp: Zum nächsten Feld kommst du atomatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)
+                                className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-10">Der Test ist in 2 Abschnitte gegliedert. Im Oberen Teil ist eine Legende zu sehen (je ein Symbol und unten die jeweils dazugehörige Zahl). Im unteren Teil sind 4 Reihen mit je 25 Symbolen und einer Textbox zu sehen. Die Aufgabe ist es, das für das jeweils angegebene Symbol die passende Zahl einzufügen.<br/>
+                                    Sobald du auf den Start button drückst, wird dir dein richtiger Test generiert. Ab diesem Moment läuft dein Timer für 2 Minuten. Der Test wird bei Aublauf dieser Zeitspanne automatisch abgesendet.<br/><br/>
+                                    kleiner Tipp: Zum nächsten Feld kommst du automatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)
                             </span>
 
                             <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
-                            <button type="submit" onClick={e => handleSubmit(e)} className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
+                            <button type="submit" onClick={(e) => handleSubmit(e)} className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
                                         border border-blue-500 hover:border-transparent rounded">
                                 starten
                             </button>
                         </div>
                     </div>
                 </div>
-            </form>
 
 
         </>
@@ -77,7 +75,7 @@ init.getInitialProps = async ({res, query}) => {
         await response.json().then(async resData => {
             data = resData
 
-            if (response.status !== 200) {
+            if (response.status !== 409) {
                 if (response.status === 401) {
                     res.writeHead(301, {
                         location: `/test/${query.testId}/sleep`
