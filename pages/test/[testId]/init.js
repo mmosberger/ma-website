@@ -44,7 +44,8 @@ const init = ({data}) => {
                             <span
                                 className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-10">Der Test ist in 2 Abschnitte gegliedert. Im Oberen Teil ist eine Legende zu sehen (je ein Symbol und unten die jeweils dazugehörige Zahl). Im unteren Teil sind 4 Reihen mit je 25 Symbolen und einer Textbox zu sehen. Die Aufgabe ist es, das für das jeweils angegebene Symbol die passende Zahl einzufügen.<br/>
                                     Sobald du auf den Start button drückst, wird dir dein richtiger Test generiert. Ab diesem Moment läuft dein Timer für 2 Minuten. Der Test wird bei Aublauf dieser Zeitspanne automatisch abgesendet.<br/><br/>
-                                    kleiner Tipp: Zum nächsten Feld kommst du automatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)
+                                    kleiner Tipp: Zum nächsten Feld kommst du automatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)<br/><br/>
+                                    Regeln: Dein Test wird nicht gewertet, sobald du mehr als 1 Feld hintereinander auslässt. (Es wird die Anzahl an Fehlern gewertet)
                             </span>
 
                             <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
