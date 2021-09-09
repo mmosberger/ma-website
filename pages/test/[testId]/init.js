@@ -43,8 +43,9 @@ const init = ({data}) => {
                     <div className="min-w-screen min-h-screen mb-5">
                         <div className="flex flex-col items-center justify-center pt-5 mx-5 mb-5 xl:mx-15 xl:my-15">
                             <span
-                                className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-5">Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.<br/>
-                                    Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
+                                className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-5">Der Test ist in 2 Abschnitte gegliedert. Im Oberen Teil ist eine Legende zu sehen (je ein Symbol und unten die jeweils dazugehörige Zahl). Im unteren Teil sind 4 Reihen mit je 25 Symbolen und einer Textbox zu sehen. Die Aufgabe ist es, das für das jeweils angegebene Symbol die passende Zahl einzufügen.<br/>
+                                    Sobald du auf den Start button drückst, wird dir dein richtiger Test generiert. Ab diesem Moment läuft dein Timer für 2 Minuten. Der Test wird bei Aublauf dieser Zeitspanne automatisch abgesendet.<br/>
+                                    kleiner Tipp: Zum nächsten Feld kommst du atomatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)
                             </span>
 
                             <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
