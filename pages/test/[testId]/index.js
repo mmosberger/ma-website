@@ -24,7 +24,7 @@ const Test = ({data}) => {
         minutes,
         start
     } = useTimer({
-        expiryTimestamp, autoStart: false, onExpire: () => {
+        expiryTimestamp, autoStart: true, onExpire: () => {
             setSendButtonEnable(true)
             submitButtonRef.current.click()
         }
@@ -95,24 +95,6 @@ const Test = ({data}) => {
                     </span>
                 </div>
             </div>
-            {!startButton ?
-                <div className="w-full h-full fixed top-0 left-0 bg-gray-100">
-                    <div className="flex flex-col items-center justify-center mx-5 my-5 xl:mx-15 xl:my-15">
-                            <span className="border border-gray-300 ring-2 ring-red-400 rounded-lg py-3 px-5 text-lg lg:text-xl mb-5">Im oberen Teil der Box hat es immer ein Symbol, im unteren Teil eine Zahl von 1 - 9. Es muss also immer eine Zahl für das jeweilige Symbol eingefügt werden. Zum nächsten Symbol kommst du, indem du die tab Taste benutzt.<br/>
-                                    Sobald du auf start drückst, wird dir dein Test angezeigt. Ab diesem Moment hast du 2 Minuten Zeit, diesen zu lösen. Er wird bei Abschluss dieser Zeit automatisch abgesendet.
-                            </span>
-
-                        <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
-                        <button type="submit" onClick={event => startTest()}
-                                className="justify-center items-center bg-transparent text-xl hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4
-                                        border border-blue-500 hover:border-transparent rounded">
-                            starten
-                        </button>
-                    </div>
-
-                </div> : null
-            }
-            {startButton === false ? null :
                 <div>
                     <form name="testform" onSubmit={(event => handleSubmit(event))}>
                         <div className="bg-gray-100 min-w-screen min-h-screen">
@@ -124,8 +106,8 @@ const Test = ({data}) => {
                                             <div className="border border-black justify-center w-12"
                                                  key={number.icon_no}
                                                  id={number.icon_id}>
-                                                <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === number.icon_id).symbol}</p>
-                                                <p className="text-center text-2xl border border-rounded-none">{number.icon_no}</p>
+                                                <p className="bg-gray-200 text-center text-2xl font-bold border border-rounded-none p-2">{symbols.find(x => x.id === number.icon_id).symbol}</p>
+                                                <p className="text-center text-2xl font-bold border border-rounded-none p-2">{number.icon_no}</p>
                                             </div>
 
                                         ))
