@@ -12,7 +12,6 @@ const Test = ({data}) => {
 
     const router = useRouter();
     const submitButtonRef = useRef();
-    let [startButton, setStartButton] = useState(false)
     let [sendButtonEnabled, setSendButtonEnable] = useState(false);
 
 
@@ -24,16 +23,11 @@ const Test = ({data}) => {
         minutes,
         start
     } = useTimer({
-        expiryTimestamp, autoStart: true, onExpire: () => {
+        expiryTimestamp, onExpire: () => {
             setSendButtonEnable(true)
             submitButtonRef.current.click()
         }
     });
-
-    const startTest = async () => {
-        setStartButton(true)
-        start()
-    }
 
     const handleSubmit = async (e) => {
 
@@ -86,8 +80,6 @@ const Test = ({data}) => {
 
     return (
         <>
-
-
             <div className="z-40 w-full h-full fixed z-10 top-0 left-0 bg-blue-200 lg:hidden">
                 <div className="flex items-center w-full h-full justify-center">
                     <span className="flex align-center">
@@ -95,73 +87,72 @@ const Test = ({data}) => {
                     </span>
                 </div>
             </div>
-                <div>
-                    <form name="testform" onSubmit={(event => handleSubmit(event))}>
-                        <div className="bg-gray-100 min-w-screen min-h-screen">
-                            <div className="flex p-10 w-full">
-                                <div className="flex flex-wrap w-full items-center justify-center">
-                                    {
-                                        data.legende.map(number => (
+            <div>
+                <form name="testform" onSubmit={(event => handleSubmit(event))}>
+                    <div className="bg-gray-100 min-w-screen min-h-screen">
+                        <div className="flex p-10 w-full">
+                            <div className="flex flex-wrap w-full items-center justify-center">
+                                {
+                                    data.legende.map(number => (
 
-                                            <div className="border border-black justify-center w-12"
-                                                 key={number.icon_no}
-                                                 id={number.icon_id}>
-                                                <p className="bg-gray-200 text-center text-2xl font-bold border border-rounded-none p-2">{symbols.find(x => x.id === number.icon_id).symbol}</p>
-                                                <p className="text-center text-2xl font-bold border border-rounded-none p-2">{number.icon_no}</p>
+                                        <div className="border border-black justify-center w-12"
+                                             key={number.icon_no}
+                                             id={number.icon_id}>
+                                            <p className="bg-gray-200 text-center text-2xl font-bold border border-rounded-none p-2">{symbols.find(x => x.id === number.icon_id).symbol}</p>
+                                            <p className="text-center text-2xl font-bold border border-rounded-none p-2">{number.icon_no}</p>
+                                        </div>
+
+                                    ))
+                                }
+                            </div>
+                        </div>
+
+                        <div className="mt-10 mx-8">
+                            <div className="mt-10 flex justify-center">
+                                <div className="flex flex-wrap max-w-7xl ">
+                                    {
+                                        data.answers.map(answer => (
+
+                                            <div className="w-1/25 border border-black justify-center mb-12"
+                                                 key={answer.answer_no}>
+                                                <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === answer.icon_id).symbol}</p>
+                                                <input type="number"
+                                                       className="w-full text-center text-2xl"
+                                                       name={answer.answer_no} id={answer.tableRow}/>
                                             </div>
 
                                         ))
                                     }
                                 </div>
+
                             </div>
+                        </div>
 
-                            <div className="mt-10 mx-8">
-                                <div className="mt-10 flex justify-center">
-                                    <div className="flex flex-wrap max-w-7xl ">
-                                        {
-                                            data.answers.map(answer => (
+                        <div className="grid grid-cols-3 gap-4">
+                            <div>
 
-                                                <div className="w-1/25 border border-black justify-center mb-12"
-                                                     key={answer.answer_no}>
-                                                    <p className="bg-gray-200 text-center text-2xl border border-rounded-none">{symbols.find(x => x.id === answer.icon_id).symbol}</p>
-                                                    <input type="number"
-                                                           className="w-full text-center text-2xl"
-                                                           name={answer.answer_no} id={answer.tableRow}/>
-                                                </div>
-
-                                            ))
-                                        }
-                                    </div>
-
-                                </div>
                             </div>
-
-                            <div className="grid grid-cols-3 gap-4">
-                                <div>
-
-                                </div>
+                            <div className="flex items-center justify-center">
                                 <div className="flex items-center justify-center">
-                                    <div className="flex items-center justify-center">
-                                        <button type="submit" ref={submitButtonRef} disabled={!sendButtonEnabled}
-                                                className="hidden">
-                                            senden
-                                        </button>
-                                    </div>
+                                    <button type="submit" ref={submitButtonRef} disabled={!sendButtonEnabled}
+                                            className="hidden">
+                                        senden
+                                    </button>
                                 </div>
-                                <div className="borders mr-8 rounded-lg">
-                                    <div className="flex items-center justify-center">
-                                        {minutes === 0 && seconds === 0
-                                            ? null
-                                            :
-                                            <h1 className="text-xl"> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
-                                        }
-                                    </div>
+                            </div>
+                            <div className="borders mr-8 rounded-lg">
+                                <div className="flex items-center justify-center">
+                                    {minutes === 0 && seconds === 0
+                                        ? null
+                                        :
+                                        <h1 className="text-xl"> {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
+                                    }
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            }
+                    </div>
+                </form>
+            </div>
         </>
     )
 }
