@@ -68,24 +68,51 @@ Answers.getInitialProps = async ({res, query}) => {
         await response.json().then(async resData => {
             data = resData
 
-            if (response.status !== 402){
-                res.writeHead(301, {
-                    location: `/test/${query.testId}`
-                })
-                res.end()
+            if (response.status !== 402) {
+                if (response.status === 401) {
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/sleep`
+                    })
+                    res.end()
+                    //Fragen nicht beantwortet
 
+                } else if (response.status === 404) {
+                    res.writeHead(301, {
+                        location: `/testNotFound`
+                    })
+                    res.end()
+                    //test exisitert nicht
+
+                } else if (response.status === 200) {
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}`
+                    })
+                    res.end()
+
+                } else if (response.status === 403) {
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/getting_solved`
+                    })
+                    res.end()
+
+                } else if (response.status === 409) {
+                    // Fragen beantwortet, test noch nicht gestartet
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}/init`
+                    })
+                    res.end()
+                }
             }
         })
-    })
 
-    if (!data) {
-        return {
-            notFound: true
+        if (!data) {
+            return {
+                notFound: true
+            }
         }
-    }
 
-    return {data}
+        return {data}
 
+    })
 }
-
 export default Answers;
