@@ -103,6 +103,12 @@ init.getInitialProps = async ({res, query}) => {
                     })
                     res.end()
 
+                } else if (response.status === 200) {
+                    res.writeHead(301, {
+                        location: `/test/${query.testId}`
+                    })
+                    res.end()
+
                 }
             }
         })
