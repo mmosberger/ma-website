@@ -47,7 +47,7 @@ const init = ({data}) => {
                                     Sobald du auf den Start button drückst, wird dir dein richtiger Test generiert. Ab diesem Moment läuft dein Timer für 2 Minuten und dein Ziel ist, so viel wie möglich einzufüllen. Der Test wird bei Aublauf dieser Zeitspanne automatisch abgesendet.<br/><br/>
                                     kleiner Tipp: Zum nächsten Feld kommst du automatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)<br/><br/>
                                     Regeln: Dein Test wird nicht gewertet, sobald du mehr als 1 Feld hintereinander auslässt. (Es wird die Anzahl an Fehlern gewertet)<br/>
-                                    Für weitere Infos steht folgendes <Link href="https://www.youtube.com/watch?v=vaBWfWyVHCc" className="no-underline hover:underline hover:cursor-pointer"><a className="text-indigo-600">YouTube Video</a></Link> zur Verfügung.
+                                    Für weitere Infos steht folgendes <a href="https://www.youtube.com/watch?v=vaBWfWyVHCc" target="_blank" className="no-underline hover:underline hover:cursor-pointer text-indigo-600">YouTube Video</a> zur Verfügung.
                             </span>
 
                             <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
