@@ -68,6 +68,7 @@ Answers.getInitialProps = async ({res, query}) => {
         await response.json().then(async resData => {
             data = resData
 
+
             if (response.status !== 402) {
                 if (response.status === 401) {
                     res.writeHead(301, {
@@ -104,15 +105,9 @@ Answers.getInitialProps = async ({res, query}) => {
                 }
             }
         })
-
-        if (!data) {
-            return {
-                notFound: true
-            }
-        }
-
-        return {data}
-
     })
+
+    return {data}
+
 }
 export default Answers;
