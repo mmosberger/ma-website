@@ -1,10 +1,6 @@
 import {useRouter} from "next/router";
-import symbols from "../../../public/symbols.json"
-import {useState, useRef} from "react";
 import React from "react"
-import {useTimer} from "react-timer-hook"
 import Image from 'next/image'
-import Link from 'next/link'
 import testimage from '../../../public/test_image.png'
 
 
@@ -47,7 +43,7 @@ const init = ({data}) => {
                                     Sobald du auf den Start button drückst, wird dir dein richtiger Test generiert. Ab diesem Moment läuft dein Timer für 2 Minuten und dein Ziel ist, so viel wie möglich einzufüllen. Der Test wird bei Aublauf dieser Zeitspanne automatisch abgesendet.<br/><br/>
                                     kleiner Tipp: Zum nächsten Feld kommst du automatisch, indem du die Tab Taste drückst. (Diese befindet sich links von der Q Taste)<br/><br/>
                                     Regeln: Dein Test wird nicht gewertet, sobald du mehr als 1 Feld hintereinander auslässt. (Es wird die Anzahl an Fehlern gewertet)<br/>
-                                    Für weitere Infos steht folgendes <a href="https://www.youtube.com/watch?v=vaBWfWyVHCc" target="_blank" rel="noopener noreferrer" className="no-underline hover:underline hover:cursor-pointer text-indigo-600">YouTube Video</a> zur Verfügung.
+                                    Für weitere Infos steht folgendes <a href="https://www.youtube.com/watch?v=QfpkVaiICec" target="_blank" rel="noopener noreferrer" className="no-underline hover:underline hover:cursor-pointer text-indigo-600">YouTube Video</a> zur Verfügung.
                             </span>
 
                             <Image height="500" width="1000" src={testimage} className="pb-5" placeholder="blur"/>
