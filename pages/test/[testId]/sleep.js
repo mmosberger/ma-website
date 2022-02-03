@@ -102,7 +102,7 @@ const Sleep = () => {
                         <div className="w-1/2">
                             <div className="flex justify-center items-center bg-gray-100 p-4 rounded-lg">
                                 <input className="bg-gray-100 rounded-lg outline-none" type="datetime-local"
-                                       min="2020-08-20T00:00" max="2021-11-30T00:00"
+                                       min="2020-08-20T00:00" max="2022-11-30T00:00"
                                        onChange={(e) => setStart(e.target.value)}/>
                             </div>
                         </div>
@@ -115,7 +115,7 @@ const Sleep = () => {
                         <div className="w-1/2">
                             <div className="flex justify-center items-center bg-gray-100 p-4 space-x-4 rounded-lg">
                                 <input className="bg-gray-100 rounded-lg outline-none" type="datetime-local"
-                                       min="2020-08-20T00:00" max="2021-11-30T00:00"
+                                       min="2020-08-20T00:00" max="2022-11-30T00:00"
                                        onChange={(e) => setEnd(e.target.value)}/>
                             </div>
                         </div>
